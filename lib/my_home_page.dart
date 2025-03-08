@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // StatefulWidget（状態を持つウィジェット）
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key});
 
-  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -12,40 +12,43 @@ class MyHomePage extends StatefulWidget {
 
 // State クラス（画面の状態を管理）
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  String message = ""; // ← TextField で使う変数
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // 中央に配置
-          children: [
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  message = value;
-                });
-              },
-            ),
-            Text(message),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("クリック！"),
-            ),
-          ],
+        title: Text("フレンド一覧",
+          style:
+          GoogleFonts.inter(
+          letterSpacing: 1.2,
+            fontWeight: FontWeight.w600,
         ),
+        ),
+        centerTitle: true,
+        leading: SizedBox(
+          width: 80,
+          height: 60,
+          child:  IconButton(
+              onPressed: (){},
+              icon: Icon(Icons.arrow_back_ios)),
+        ),
+        actions: [
+          SizedBox(
+            width: 80,
+            height: 60,
+          child: IconButton(
+              onPressed: (){},
+              icon: Icon(Icons.person_add_alt,size: 30)),
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print("ボタンが押された！");
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.next_week),
+      body:  Text("nayuなゆ",
+        style:
+        GoogleFonts.inter(
+          fontSize: 20,
+          letterSpacing: 1.2,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
