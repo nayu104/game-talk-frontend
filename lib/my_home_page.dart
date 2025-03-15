@@ -11,9 +11,10 @@ class MyHomePage extends StatefulWidget {
 
 // State クラス（画面の状態を管理）
 class _MyHomePageState extends State<MyHomePage> {
+  List user = ["んd", "BB", "こんちわ"];
+
   @override
   Widget build(BuildContext context) {
-    List user = ["んd", "BB", "こんちわ"]; //ここに入れないとホットリロードで更新されない。あとで修正する
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -23,23 +24,29 @@ class _MyHomePageState extends State<MyHomePage> {
             fontWeight: FontWeight.w600,
           ),
         ),
-        centerTitle: true,
         leading: SizedBox(
           width: 50,
           height: 50,
-          child: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
+          child: IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.arrow_back_ios),
+            highlightColor: Colors.transparent,
+          ),
         ),
         actions: [
           SizedBox(
             width: 50,
             height: 50,
             child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.search, size: 35),
+              onPressed: () {Navigator.pushNamed(context, "/add_friend");
+              },
+              icon: Icon(Icons.person_add_alt, size: 35),
+              highlightColor: Colors.transparent,
             ),
           ),
         ],
       ),
+
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -56,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Icon(Icons.star, size: 15),
               Text(
-                "99999999",
+                "999",
                 style: GoogleFonts.robotoMono(
                   fontSize: 15,
                   letterSpacing: 1.2,
@@ -65,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
+
           Expanded(
             child: ListView.builder(
               itemCount: user.length,
