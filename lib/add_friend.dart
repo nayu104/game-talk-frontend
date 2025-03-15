@@ -74,6 +74,7 @@ class _AddFriend extends State<AddFriend> {
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),
+                  cursorColor: Colors.white,
                   decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.search,
