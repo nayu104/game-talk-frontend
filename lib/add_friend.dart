@@ -24,10 +24,11 @@ class _AddFriend extends State<AddFriend> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF404040),
-      resizeToAvoidBottomInset: true, // キーボードが出たときにレイアウトを調整
-      //appBarの領域で「フレンド検索」が途切れる
+      resizeToAvoidBottomInset: false, // キーボードが出たときにレイアウトを調整
+      //appBarの領域に入ると文字が途切れる
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(40),//AppBarの高さ変更時,キーボード入力時に「フレンド検索」が埋もれるから
+        preferredSize: Size.fromHeight(40),
+        //AppBarの高さ変更時,キーボード入力時に「フレンド検索」が埋もれるから
         child: AppBar(
           backgroundColor: Color(0xFF404040),
           leading: IconButton(
@@ -40,7 +41,7 @@ class _AddFriend extends State<AddFriend> {
       ),
 
       body: Center(
-        child: Transform.translate(
+    child: Transform.translate(
           offset: Offset(0, -130), //Offset(dx,dy)　中心を軸にx,y座標で位置調節
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -70,12 +71,14 @@ class _AddFriend extends State<AddFriend> {
                 height: 50, //高さ50
                 child: TextField(
                   style: GoogleFonts.inter(
+                    //入力時のフォント
                     letterSpacing: 1.2,
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),
                   cursorColor: Colors.white,
                   decoration: InputDecoration(
+                    //入力フィールドないしicon
                     prefixIcon: Icon(
                       Icons.search,
                       size: 20,
@@ -106,14 +109,31 @@ class _AddFriend extends State<AddFriend> {
                       color: Colors.white,
                     ),
                   ),
-                  IconButton(
+                  IconButton(//押した時に一瞬だけ✓マークいれたい未完成
                     onPressed: () {
                       vibratePhone();
                     },
                     icon: Icon(Icons.copy, color: Colors.white),
+                    highlightColor: Colors.black,
                   ),
                 ],
               ),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orange,
+                  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 12),//ボタン内の余白指定,整形のため
+                ),
+                child: Text(//text内で背景色指定するとマーカーになる
+                  "フレンド申請送信",
+                  style: GoogleFonts.inter(
+                    fontSize: 15,
+                    letterSpacing: 2.2,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
