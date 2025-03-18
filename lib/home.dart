@@ -21,35 +21,34 @@ class Home extends StatelessWidget {
               padding: EdgeInsets.only(top: 32),
               child: Text('メニュー'),
             ),
+            Spacer(), // これでRowを画面の下に押し下げる
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 ElevatedButton(
-                  onPressed: () {Navigator.pushNamed(context, "/home"},
+                  onPressed: () {Navigator.pushNamed(context, "/home");},
                   child: Icon(Icons.home, color: Colors.orange),
                 ),
                 ElevatedButton(
-                  onPressed: () {Navigator.pushNamed(context, "/account_circle"},
+                  onPressed: () {Navigator.pushNamed(context, "/AddFriend");},
                   child: Icon(Icons.account_circle, color: Colors.orange),
                 ),
                 ElevatedButton(
-                  onPressed: () {Navigator.pushNamed(context, "/setting"},
+                  onPressed: () {Navigator.pushNamed(context, "/setting");},
                   child: Icon(Icons.settings, color: Colors.orange),
                 ),
                 ElevatedButton(
-                  onPressed: () {Navigator.pushNamed(context, "/done"},
+                  onPressed: () {Navigator.pushNamed(context, "/done");},
                   child: Icon(Icons.done, color: Colors.orange),
                 ),
                 ElevatedButton(
-                  onPressed: () {Navigator.pushNamed(context, "/timer"},
+                  onPressed: () {Navigator.pushNamed(context, "/TimerWidget");},
                   child: Icon(Icons.alarm, color: Colors.orange),
                 ),
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 32),
-              child: Text('OutlinedButton'),
-            ),
+            SizedBox(height: 16), // 画面の下との余白を追加
           ],
         ),
       ),

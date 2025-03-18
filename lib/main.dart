@@ -1,5 +1,10 @@
+import 'dart:nativewrappers/_internal/vm/lib/async_patch.dart';
+
 import 'package:flutter/material.dart';
 import 'package:stu/add_friend.dart';
+import 'package:stu/done.dart';
+import 'package:stu/settings.dart';
+import 'package:stu/timer.dart';
 import 'home.dart';
 
 void main() {
@@ -22,9 +27,9 @@ class MyApp extends StatelessWidget {
         "/": (BuildContext context) => const Home(),
         "/add_friend": (BuildContext context) => const AddFriend(),
         '/done':(BuildContext context) => const Done(),
-        '/timer':(BuildContext context) => const Timer(),
-        '/account_circle':(BuildContext context) => const AccountCircle(),
-        '/settings':(BuildContext context) => const Settings(),
+        '/timer':(BuildContext context) => const TimerWidget(),
+        '/AddFriend':(BuildContext context) => const AddFriend(),
+        '/settings':(BuildContext context) => const Setting(),
       },
     );
   }
