@@ -10,7 +10,6 @@ class timer extends StatefulWidget {
 }
 // State クラス（画面の状態を管理）
 class _timer extends State<timer> {
-
   final _stopWatchTimer = StopWatchTimer();
 
   @override
