@@ -23,14 +23,14 @@ class _AddFriend extends State<AddFriend> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF404040),
-      resizeToAvoidBottomInset: false, // キーボードが出たときにレイアウトを調整
+      backgroundColor: const Color(0xFF404040),
+      resizeToAvoidBottomInset: false, // ウィジェットを勝手に押し上げないようにする
       //appBarの領域に入ると文字が途切れる
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(40),
+        preferredSize: Size.fromHeight(40),//高さ40ピクセルのサイズ
         //AppBarの高さ変更時,キーボード入力時に「フレンド検索」が埋もれるから
         child: AppBar(
-          backgroundColor: Color(0xFF404040),
+          backgroundColor: const Color(0xFF404040),
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
