@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stu/add_friend.dart';
 import 'Home.dart';
-import 'my_home_page.dart';
-import 'done.dart';
+import 'friend_list.dart';
+import 'login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,10 +21,9 @@ class MyApp extends StatelessWidget {
       //home: const MyHomePage(),
       initialRoute: "/", //画面遷移path登録.initialRoute:が起動時の画面指定
       routes: <String, WidgetBuilder>{
-        "/": (BuildContext context) => const MyHomePage(),
-        //"/": (BuildContext context) => const Home(),
+        "/": (BuildContext context) => const Login(),
         "/add_friend": (BuildContext context) => const AddFriend(),
-       // '/done':(BuildContext context) => const Done(),
+       //'/login':(BuildContext context) => const Login(),
         //'/timer':(BuildContext context) => const Timer(),
         //'/account_circle':(BuildContext context) => const AccountCircle(),
         //'/settings':(BuildContext context) => const Settings(),
