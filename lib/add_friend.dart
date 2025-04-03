@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:stu/Widget/pop_button.dart';
 import 'package:stu/Widget/text_format.dart';
 import 'package:stu/Widget/orange_button.dart';
-import 'package:stu/Widget/search_text_field.dart';
+import 'package:stu/Widget/format_text_field.dart';
 import 'package:stu/Widget/small_text.dart';
 import 'package:vibration/vibration.dart';
 
@@ -67,7 +67,7 @@ class _AddFriend extends State<AddFriend> {
               SizedBox(height: 0),
 
               smallText(message: "IDを入力するとユーザーにフレンド申請できます！"),
-              SearchTextField(Width: 300, keyboardType: TextInputType.number),
+              FormatTextField(Width: 300, keyboardType: TextInputType.number,iconData: Icons.search),
 
               Row(
                 mainAxisSize: MainAxisSize.min,

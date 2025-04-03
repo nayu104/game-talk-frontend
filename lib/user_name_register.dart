@@ -18,21 +18,21 @@ class _Login extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFF404040),
+      backgroundColor: Color(0xFF404040),
       appBar:
       AppBar(backgroundColor: Color(0xFF404040),
       ),
-      
+
       body: Center(
         child:Column(
           children: [
-            TextFormat(message: "ログインしてください",fontsize: 30),
-            SizedBox(height: 10),//行間
-            FormatTextField(Width: 300,iconData: Icons.person),//入力フィールド＆アイコン表示
-            FormatTextField(Width: 300,iconData: Icons.key),//上記同様
-            SizedBox(height: 10),//行間
-            OrangeButton(message: 'ログイン',fontSize: 22),
-        ],
+            TextFormat(message: "サインインしてください",fontsize: 30),
+            SizedBox(height: 10),
+            FormatTextField(Width: 300,iconData: Icons.person),
+            FormatTextField(Width: 300,iconData: Icons.key),
+            SizedBox(height: 10),
+            OrangeButton(message: 'サインイン',fontSize: 22),
+          ],
         ),
       ),
     );

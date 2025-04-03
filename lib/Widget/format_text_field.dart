@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SearchTextField extends StatelessWidget {
+class FormatTextField extends StatelessWidget {//TODOクラス名が妥当にリネームする
   final double? Width;
   final TextInputType?  keyboardType;
   final IconData? iconData;
-  const SearchTextField({super.key,this.Width,this.keyboardType,this.iconData});
+  const FormatTextField({super.key,
+    this.Width,
+    this.keyboardType,
+    this.iconData
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +22,7 @@ class SearchTextField extends StatelessWidget {
           letterSpacing: 1.2,
           fontWeight: FontWeight.w600,
           color: Colors.white,
+          //TODOバックメッセージ
         ),
         cursorColor: Colors.white,
         decoration: InputDecoration(

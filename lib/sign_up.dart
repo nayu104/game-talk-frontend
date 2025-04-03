@@ -22,16 +22,14 @@ class _Login extends State<Login> {
       appBar:
       AppBar(backgroundColor: Color(0xFF404040),
       ),
-      
+
       body: Center(
         child:Column(
           children: [
-            TextFormat(message: "ログインしてください",fontsize: 30),
-            SizedBox(height: 10),//行間
-            FormatTextField(Width: 300,iconData: Icons.person),//入力フィールド＆アイコン表示
-            FormatTextField(Width: 300,iconData: Icons.key),//上記同様
-            SizedBox(height: 10),//行間
-            OrangeButton(message: 'ログイン',fontSize: 22),
+            TextFormat(message: "ニックネーム",fontsize: 30),
+            SizedBox(height: 10),
+            FormatTextField(Width: 300,iconData: Icons.person_2),
+            OrangeButton(message: 'はじめる',fontSize: 22),
         ],
         ),
       ),
