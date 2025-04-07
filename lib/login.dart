@@ -15,6 +15,24 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
+
+  final nameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  Future<void> login() async{
+    final name = nameController.text;
+    final pass = passwordController.text;
+
+    final response = await http.post(
+    Uri.http("172.20.10.4:5000","/signup"),
+      headers: {"Content-Type":"application/json"},//jsonで送る合図
+      body: jsonEncode({//json変換＆postする中身
+        "username":name,
+        "password":pass,
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,11 +53,13 @@ class _Login extends State<Login> {
               Width: 300,
               iconData: Icons.person,
               labelText: "ユーザーID",
+              Controller: nameController,
             ),//入力フィールド＆アイコン表示
 
             FormatTextField(
               Width: 300,
               iconData: Icons.key,
+              Controller: passwordController,
               keyboardType: TextInputType.visiblePassword,
               labelText: "パスワード",
             ),//上記同様
