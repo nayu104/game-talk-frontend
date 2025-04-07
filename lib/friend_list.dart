@@ -8,7 +8,6 @@ import 'Widget/pop_button.dart';
 import 'Widget/my_name.dart';
 import 'Widget/friend_list_db.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'Widget/my_point_row.dart';
 import 'Widget/push_button.dart';
 import 'Widget/text_format.dart';
@@ -33,7 +32,7 @@ class _FriendList extends State<FriendList> {
   }
 
   Future<void> getUser() async {
-    var url = Uri.http("192.168.3.44:5000", "/users");
+    var url = Uri.http("172.20.10.4:5000", "/users");
     var response = await http.get(url);
 
     setState(() {

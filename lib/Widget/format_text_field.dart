@@ -5,10 +5,14 @@ class FormatTextField extends StatelessWidget {//TODOクラス名が妥当にリ
   final double? Width;
   final TextInputType?  keyboardType;
   final IconData? iconData;
+  final TextEditingController? Controller;
+  final String? labelText;
   const FormatTextField({super.key,
     this.Width,
     this.keyboardType,
-    this.iconData
+    this.iconData,
+    this.Controller,
+    this.labelText,
   });
 
   @override
@@ -17,6 +21,7 @@ class FormatTextField extends StatelessWidget {//TODOクラス名が妥当にリ
       width: Width, //幅300
       height: 50, //高さ50
       child: TextField(
+        controller: Controller,
         style: GoogleFonts.inter(
           //入力時のフォント
           letterSpacing: 1.2,
@@ -26,6 +31,8 @@ class FormatTextField extends StatelessWidget {//TODOクラス名が妥当にリ
         ),
         cursorColor: Colors.white,
         decoration: InputDecoration(
+          hintText: labelText,
+          hintStyle: TextStyle(color:  Colors.white.withOpacity(0.6)),
           //入力フィールドないしicon
           prefixIcon: iconData != null
           ? Icon(iconData, size: 20, color: Colors.white)

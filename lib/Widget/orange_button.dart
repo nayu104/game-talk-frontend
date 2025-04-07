@@ -5,12 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 class OrangeButton extends StatelessWidget {
   final String message;//final状態変化対策,="";で二重初期化しないで.コンストラクタで代入するから
   final double fontSize;
-  const OrangeButton({super.key, required this.message, required this.fontSize});
+  final VoidCallback? onPressed;
+  const OrangeButton({super.key, required this.message, required this.fontSize,this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return  ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.orange,
         padding: EdgeInsets.symmetric(horizontal: 20,vertical: 12),//ボタン内の余白指定,整形のため

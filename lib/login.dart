@@ -26,13 +26,29 @@ class _Login extends State<Login> {
       body: Center(
         child:Column(
           children: [
+
             TextFormat(message: "ログインしてください",fontsize: 30),
+
             SizedBox(height: 10),//行間
-            FormatTextField(Width: 300,iconData: Icons.person),//入力フィールド＆アイコン表示
-            FormatTextField(Width: 300,iconData: Icons.key),//上記同様
+
+            FormatTextField(
+              Width: 300,
+              iconData: Icons.person,
+              labelText: "ユーザーID",
+            ),//入力フィールド＆アイコン表示
+
+            FormatTextField(
+              Width: 300,
+              iconData: Icons.key,
+              keyboardType: TextInputType.visiblePassword,
+              labelText: "パスワード",
+            ),//上記同様
+
             SizedBox(height: 10),//行間
-            OrangeButton(message: 'ログイン',fontSize: 22),
-        ],
+
+            OrangeButton(message: 'ログイン',fontSize: 10),
+
+          ],
         ),
       ),
     );
