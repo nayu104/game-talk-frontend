@@ -18,12 +18,15 @@ class _MyHome extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Color(0xFF404040)),
+      backgroundColor: Color(0xFF404040),
+      appBar: AppBar(
+          backgroundColor: Color(0xFF404040),
+          title:FormatTextField(Width: 300,iconData: Icons.search),
+          leading:UserIcon(size: 30)//TODOサイズが意図どおりに動かない,なんでだ
+      ),
 
       body:Row(
         children: [
-        UserIcon(size: 30),
-          FormatTextField(Width: 300,iconData: Icons.search),
           UIDivider(),//TODO:DB接続＆掲示板実装、2025.03.31
       ],
       ),

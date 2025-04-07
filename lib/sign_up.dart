@@ -15,6 +15,7 @@ class SignUP extends StatefulWidget {
   State<SignUP> createState() => _SignUP();
 }
 class _SignUP extends State<SignUP> {
+
   final nameController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -22,10 +23,8 @@ class _SignUP extends State<SignUP> {
     final name = nameController.text;
     final pass = passwordController.text;
 
-    final url = Uri.http("172.20.10.4:5000","/signup");
-
     final response = await http.post(
-      url,
+      Uri.http("172.20.10.4:5000","/signup"),
       headers: {"Content-Type":"application/json"},//jsonで送る合図
       body: jsonEncode({//json変換＆postする中身
         "username":name,

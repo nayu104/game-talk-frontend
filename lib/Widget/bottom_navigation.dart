@@ -14,23 +14,23 @@ class _bottom_navigation extends State<bottom_navigation> {
         children: [
           IconButton(
             onPressed: (){},
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home,color: Colors.white,),
           ),
           IconButton(
             onPressed: (){},
-            icon: Icon(Icons.timer),
+            icon: Icon(Icons.timer,color: Colors.white,),
           ),
           IconButton(
             onPressed: (){},
-            icon: Icon(Icons.note_alt_outlined),
+            icon: Icon(Icons.note_alt_outlined,color: Colors.white,),
           ),
           IconButton(
             onPressed: (){},
-            icon: Icon(Icons.people_outline),
+            icon: Icon(Icons.people_outline,color: Colors.white,),
           ),
           IconButton(
             onPressed: (){},
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.settings,color: Colors.white,),
           ),
         ],
       );
