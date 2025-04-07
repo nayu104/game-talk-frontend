@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stu/add_friend.dart';
+import 'package:stu/sign_up.dart';
 import 'Home.dart';
 import 'friend_list.dart';
 import 'login.dart';
