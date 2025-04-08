@@ -11,28 +11,13 @@ class _bottom_navigation extends State<bottom_navigation> {
   @override
   Widget build(BuildContext context) {
     return Row(
-        children: [
-          IconButton(
-            onPressed: (){},
-            icon: Icon(Icons.home,color: Colors.white,),
-          ),
-          IconButton(
-            onPressed: (){},
-            icon: Icon(Icons.timer,color: Colors.white,),
-          ),
-          IconButton(
-            onPressed: (){},
-            icon: Icon(Icons.note_alt_outlined,color: Colors.white,),
-          ),
-          IconButton(
-            onPressed: (){},
-            icon: Icon(Icons.people_outline,color: Colors.white,),
-          ),
-          IconButton(
-            onPressed: (){},
-            icon: Icon(Icons.settings,color: Colors.white,),
-          ),
-        ],
-      );
+      children: [
+        Expanded(child: IconButton(onPressed: () {}, icon: Icon(Icons.home))),
+        Expanded(child: IconButton(onPressed: () {}, icon: Icon(Icons.timer))),
+        Expanded(child: IconButton(onPressed: () {}, icon: Icon(Icons.note_alt_outlined))),
+        Expanded(child: IconButton(onPressed: () {}, icon: Icon(Icons.people_outline))),
+        Expanded(child: IconButton(onPressed: () {}, icon: Icon(Icons.settings))),
+      ],
+    );
   }
 }
