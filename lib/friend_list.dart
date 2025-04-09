@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:stu/Widget/user_icon.dart';
 import 'package:stu/Widget/ui_divider_widget.dart';
+import 'package:vibration/vibration.dart';
 import 'Widget/pop_button.dart';
 import 'Widget/my_name.dart';
 import 'Widget/friend_list_db.dart';
@@ -30,6 +31,7 @@ class _FriendList extends State<FriendList> {
     super.initState(); //親の処理も初期化しておく、中で大事な処理があるから
     getUser(); //ここで自分の処理を初期化
   }
+
 
   Future<void> getUser() async {
     var url = Uri.http("172.20.10.4:5000", "/users");
