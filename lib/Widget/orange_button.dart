@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 //使用時はMyName(font_size:x)としてください。xは数値
+
+//onPressedに何も入れないと灰色のボタンになります！
+
 class OrangeButton extends StatelessWidget {
   final String message;//final状態変化対策,="";で二重初期化しないで.コンストラクタで代入するから
-  final double fontSize;
+  final double? fontSize;
   final VoidCallback? onPressed;
-  const OrangeButton({super.key, required this.message, required this.fontSize,this.onPressed});
+  const OrangeButton({super.key, required this.message, this.fontSize,this.onPressed});
 
   @override
   Widget build(BuildContext context) {

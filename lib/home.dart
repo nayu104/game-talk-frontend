@@ -19,10 +19,13 @@ class _MyHome extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF404040),
-      appBar: AppBar(
+      appBar: PreferredSize(
+    preferredSize: Size.fromHeight(80),
+    child:  AppBar(
           backgroundColor: Color(0xFF404040),
           title:FormatTextField(Width: 300,iconData: Icons.search),
           leading:UserIcon(size: 30)//TODOサイズが意図どおりに動かない,なんでだ
+      ),
       ),
 
       body:Row(
