@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 //onPressedに何も入れないと灰色のボタンになります！
 
 class OrangeButton extends StatelessWidget {
-  final String message;//final状態変化対策,="";で二重初期化しないで.コンストラクタで代入するから
+  final String message;
   final double? fontSize;
   final VoidCallback? onPressed;
   const OrangeButton({super.key, required this.message, this.fontSize,this.onPressed});

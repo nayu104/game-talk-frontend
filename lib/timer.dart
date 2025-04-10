@@ -16,7 +16,7 @@ State<StudyTimer> createState() => _StudyTimer();
 class _StudyTimer extends State<StudyTimer> {
   // この _stopWatchTimer は StopWatchTimer クラスのインスタンス。
   //onStartTimer()やらを召喚するために使う
-final _stopWatchTimer = StopWatchTimer();
+final _stopWatchTimer = StopWatchTimer();//インスタンス生成
 
 void vibratePhone() {
   Vibration.vibrate(duration: 30); //バイブレーション関数
