@@ -33,7 +33,6 @@ class _MyHome extends State<Home> {
           UIDivider(),//TODO:DB接続＆掲示板実装、2025.03.31
       ],
       ),
-
       bottomNavigationBar:bottom_navigation(),
     );
   }
