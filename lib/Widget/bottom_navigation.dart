@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stu/Widget/ui_divider_widget.dart';
 
 class bottom_navigation extends StatefulWidget {
   const bottom_navigation({super.key});
@@ -12,6 +13,7 @@ class _bottom_navigation extends State<bottom_navigation> {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        UIDivider(),//TODOなぜか下線が表示されない！
         Expanded(child: IconButton(onPressed: () {}, icon: Icon(Icons.home,color: Colors.white))),
         Expanded(child: IconButton(onPressed: () {}, icon: Icon(Icons.timer,color: Colors.white))),
         Expanded(child: IconButton(onPressed: () {}, icon: Icon(Icons.note_alt_outlined,color: Colors.white))),

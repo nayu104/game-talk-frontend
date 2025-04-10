@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:vibration/vibration.dart';
 
+import 'Widget/bottom_navigation.dart';
 import 'Widget/orange_button.dart';
 
 class StudyTimer extends StatefulWidget {
@@ -100,8 +101,8 @@ body: Center(
       OrangeButton(message: "終了",fontSize: 15,onPressed: _stopWatchTimer.onResetTimer,),
     ],
   ),
-
-)
+),
+  bottomNavigationBar:bottom_navigation(),
 );
 }
 }
