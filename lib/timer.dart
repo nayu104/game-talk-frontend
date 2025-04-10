@@ -69,16 +69,19 @@ body: Center(
         mainAxisSize: MainAxisSize.min,
         children: [
 
-      OrangeButton(
-          message: "スタート",
-          fontSize: 10,
-          onPressed:(){
-            _stopWatchTimer.onStartTimer();
-            vibratePhone();
-          }
+          RawMaterialButton(//自由度の高いボタン
+            onPressed: () { _stopWatchTimer.onStartTimer();vibratePhone();},
+            fillColor: Colors.orange, //オレンジで埋める
+            shape: const CircleBorder(), // 丸くする
+            constraints: const BoxConstraints.tightFor(//ボックスの制約.tightForはピッタリにするという意
+              width: 50,
+              height: 50,
+            ),
+            child: const Icon(Icons.play_arrow, color: Colors.white),
           ),
+//TODO：boolでStartをストップにしよう
 
-      OrangeButton(
+          OrangeButton(
         message: "ストップ"
         ,fontSize: 10,
         onPressed: () {
@@ -99,6 +102,7 @@ body: Center(
       ),
       SizedBox(height: 20),
       OrangeButton(message: "終了",fontSize: 15,onPressed: _stopWatchTimer.onResetTimer,),
+      IconButton(onPressed: (){}, icon: Icon(Icons.start)),
     ],
   ),
 ),
