@@ -6,10 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 //onPressedに何も入れないと灰色のボタンになります！
 
 class OrangeButton extends StatelessWidget {
-  final String message;
+  final String? message;
   final double? fontSize;
   final VoidCallback? onPressed;
-  const OrangeButton({super.key, required this.message, this.fontSize,this.onPressed});
+  const OrangeButton({super.key, this.message, this.fontSize,this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class OrangeButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20,vertical: 12),//ボタン内の余白指定,整形のため
       ),
       child: Text(//text内で背景色指定するとマーカーになる
-        message,
+        message??"",
         style: GoogleFonts.inter(
           fontSize: fontSize,
           letterSpacing: 2.2,
