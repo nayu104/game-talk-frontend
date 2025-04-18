@@ -82,7 +82,7 @@ class _FriendList extends State<FriendList> {
             UIDivider(), //自分とフレンドリストの境界線
             //フレンドリストをDBから取得
             isLoading
-                ? Center(child: CircularProgressIndicator(color: Colors.orange))
+                ? Center(child: CircularProgressIndicator(color: Colors.orange))//クルクル
                 : Expanded(child: FriendListDB(user: userList)),
           ],
         ),
