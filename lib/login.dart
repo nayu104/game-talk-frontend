@@ -3,10 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:stu/Widget/text_format.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'Widget/bottom_navigation.dart';
 import 'Widget/push_button.dart';
 import 'Widget/format_text_field.dart';
 import 'Widget/orange_button.dart';
+import 'package:url_launcher/link.dart';
+import 'package:app_links/app_links.dart';
+import 'dart:async';
+import 'home.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -19,19 +25,47 @@ class _Login extends State<Login> {
   final nameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  Future<void> login() async{
-    final name = nameController.text;
-    final pass = passwordController.text;
-
-    final response = await http.post(
-    Uri.http("172.20.10.4:5000","/signup"),
-      headers: {"Content-Type":"application/json"},//jsonで送る合図
-      body: jsonEncode({//json変換＆postする中身
-        "username":name,
-        "password":pass,
-      }),
-    );
+  Future<void> GitHub_login() async{
+    var url = Uri.https("dart-study-db.onrender.com","login/github");
+    if(await canLaunchUrl(url)){//awaitなのはネットの状況やスマホの状態によって時間がかかる可能性があるから
+      await launchUrl(url,mode:LaunchMode.externalApplication);//mode:LaunchMode.externalApplicationは外部ブラウザで開くモード
+    }else{
+      throw "開けないアル$url";
+    }
   }
+  final AppLinks appLinks = AppLinks();//DeepLinkには欠かせませんねえ。リンク来た判定に使う
+
+  @override
+  void initState() {
+    super.initState();
+
+    // 初回起動時のリンクがきたかチェック
+    appLinks.getInitialAppLink().then(_handleUri);
+
+    // アプリ起動中にリンクが来たかチェック、きたら_handleUriにリンクを渡す
+    appLinks.uriLinkStream.listen(_handleUri);
+
+    print("DeepLink リスナー設定完了");
+  }
+
+  void _handleUri(Uri? uri) {
+    print("URI受信: $uri");
+    if (uri?.scheme == "techcircle") {
+      final id = uri?.queryParameters["id"] ?? "";
+      final name = uri?.queryParameters["name"] ?? "";
+      final avatar = uri?.queryParameters["avatar"] ?? "";
+
+      if (context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => Home(id: id, name: name, avatar: avatar),
+          ),
+        );
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,29 +79,17 @@ class _Login extends State<Login> {
         child:Column(
           children: [
 
-            TextFormat(message: "ログインしてください",fontsize: 30),
+            TextFormat(message: "GitHubでログイン",fontsize: 25),
 
-            SizedBox(height: 10),//行間
+            SizedBox(height: 40),//行間
 
-            FormatTextField(
-              Width: 300,
-              iconData: Icons.person,
-              labelText: "ユーザーID",
-              Controller: nameController,
-            ),//入力フィールド＆アイコン表示
-
-            FormatTextField(
-              Width: 300,
-              iconData: Icons.key,
-              Controller: passwordController,
-              keyboardType: TextInputType.visiblePassword,
-              labelText: "パスワード",
-            ),//上記同様
-
-            SizedBox(height: 10),//行間
-
-            OrangeButton(message: 'ログイン',fontSize: 10),
-
+            OrangeButton(
+              message: 'ログイン',
+              fontSize: 10,
+            onPressed: (){
+              GitHub_login();
+            },
+            ),
           ],
         ),
       ),

@@ -8,13 +8,25 @@ import 'Widget/ui_divider_widget.dart';
 import 'Widget/user_icon.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+
+  final String id;
+  final String name;
+  final String avatar;
+
+  const Home({
+    super.key,
+    required this.id,
+    required this.name,
+    required this.avatar,
+  });
 
   @override
   State<Home> createState() => _MyHome();
 }
 
 class _MyHome extends State<Home> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +35,22 @@ class _MyHome extends State<Home> {
     preferredSize: Size.fromHeight(80),
     child:  AppBar(
           backgroundColor: Color(0xFF404040),
-          title:FormatTextField(Width: 300,iconData: Icons.search),
-          leading:UserIcon(size: 30)//TODOサイズが意図どおりに動かない,なんでだ
+          title:FormatTextField(Width: 300,iconData: Icons.search,labelText: "検索",),
+          leading:
+              Padding(padding: const EdgeInsets.all(8.0),
+              child:
+          CircleAvatar(
+            backgroundImage: NetworkImage(widget.avatar),
+            radius: 30,//半径ね
+          )//TODOサイズが意図どおりに動かない,なんでだ
       ),
-      ),
+              ),
+    ),
 
       body:Row(
         children: [
           UIDivider(),//TODO:DB接続＆掲示板実装、2025.03.31
+          Text("ようこそ、${widget.name}さん")
       ],
       ),
       bottomNavigationBar:bottom_navigation(),
