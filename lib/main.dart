@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stu/add_friend.dart';
+import 'package:stu/post.dart';
 import 'package:stu/sign_up.dart';
 import 'package:stu/timer.dart';
 import 'Home.dart';

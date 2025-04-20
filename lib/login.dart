@@ -51,15 +51,15 @@ class _Login extends State<Login> {
   void _handleUri(Uri? uri) {
     print("URI受信: $uri");
     if (uri?.scheme == "techcircle") {
-      final id = uri?.queryParameters["id"] ?? "";
-      final name = uri?.queryParameters["name"] ?? "";
-      final avatar = uri?.queryParameters["avatar"] ?? "";
+      final this_id = uri?.queryParameters["id"] ?? "";
+      final this_name = uri?.queryParameters["name"] ?? "";
+      final this_avatar = uri?.queryParameters["avatar"] ?? "";
 
       if (context.mounted) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => Home(id: id, name: name, avatar: avatar),
+            builder: (_) => Home(id: this_id, name: this_name, avatar: this_avatar),
           ),
         );
       }

@@ -20,6 +20,7 @@ class FormatTextField extends StatelessWidget {//TODOクラス名が妥当にリ
     return SizedBox(
       width: Width, //幅300
       height: 50, //高さ50
+
       child: TextField(
         controller: Controller,
         style: GoogleFonts.inter(

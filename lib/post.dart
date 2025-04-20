@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:stu/Widget/text_format.dart';
+import 'Home.dart';
 import 'Widget/bottom_navigation.dart';
 import 'Widget/push_button.dart';
 import 'Widget/format_text_field.dart';
@@ -10,21 +11,21 @@ import 'Widget/orange_button.dart';
 
 
 class Post extends StatefulWidget {
-  const Post({super.key});
+
+  final String avatar;
+  final String name;
+
+  const Post({
+    super.key,
+    required this.avatar,
+    required this.name
+  });
   @override
   State<Post> createState() => _Post();
 }
 class _Post extends State<Post> {
 
-  final postController = TextEditingController();
-
-  List<String> posts = [];
-
-  void _post_add(final postController){
-    setState(() {
-      posts.add(postController);
-    });
-  }
+  final _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,44 +33,71 @@ class _Post extends State<Post> {
       backgroundColor: Color(0xFF404040),
       appBar:
       AppBar(backgroundColor: Color(0xFF404040),
+        leading:
+        IconButton(
+            onPressed: (){},//TODO処理
+            icon: Icon(Icons.close,color: Colors.white,),
       ),
-
-      body:Center(child:
-        Row(children: [
-          FormatTextField(
-            Width: 300,
-            iconData: Icons.abc,
-            labelText: "投稿メッセージを入力",
-            Controller: postController,
+        actions: [
+          Padding(padding: EdgeInsets.only(right: 10),
+          child:
+          IconButton(
+            onPressed: (){
+              final message = _textController.text;
+              Navigator.pop(context,message);
+            },//TODO処理
+            icon: Transform.rotate(
+                angle:-0.5,
+            child: Icon(Icons.send,color: Colors.white,)
+            )
           ),
-
-          IconButton(onPressed:(){
-            _post_add(postController);
-          }, icon: Icon(Icons.send)),
-          Expanded(
-              child: ListView.builder(
-                itemCount: posts.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.all(1.0),//行間隔
-                    child: Text(
-                      posts[index], //nameカラム指定でnameだけ取り出す
-                      style: GoogleFonts.inter(
-                        fontSize: 20,
-                        letterSpacing: 1.2,
-                        fontWeight: FontWeight.w600,
-                        height: 2,
-                        color: Colors.white,
-                      ),
-                    ),
-                  );
-                },
-              ),
           ),
         ],
-        ),
+      ),
 
+      body:
+
+      Column(
+        children: [
+          Row(
+           //crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(width: 10,),
+          CircleAvatar(
+            backgroundImage: NetworkImage(widget.avatar),
+            radius: 15,
+          ),
+              SizedBox(width: 8,),
+              Text(widget.name, style: GoogleFonts.inter(
+                letterSpacing: 1.2,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                fontSize: 15,
+              ),),
+    ],
+          ),
+
+          Padding(padding: EdgeInsets.only(left: 50),
+          child:
+      TextField(
+        cursorColor: Colors.white,
+       controller: _textController,
+        style: GoogleFonts.inter(
+          //入力時のフォント
+          letterSpacing: 1.2,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
         ),
+        maxLines: null,
+        decoration: InputDecoration(
+          hintText: "いまなにしてる？",
+          hintStyle: TextStyle(color: Colors.grey),
+          border: InputBorder.none, // 枠線なし
+        ),
+      ),
+      ),
+        ]
+      )
     );
   }
 }
