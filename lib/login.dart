@@ -45,7 +45,7 @@ class _Login extends State<Login> {
     // アプリ起動中にリンクが来たかチェック、きたら_handleUriにリンクを渡す
     appLinks.uriLinkStream.listen(_handleUri);
 
-    print("DeepLink リスナー設定完了");
+    print("DeepLink 完了");
   }
 
   void _handleUri(Uri? uri) {
