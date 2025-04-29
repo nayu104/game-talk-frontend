@@ -7,6 +7,10 @@ import 'Widget/bottom_navigation.dart';
 import 'Widget/format_text_field.dart';
 import 'Widget/ui_divider_widget.dart';
 import 'Widget/user_icon.dart';
+import 'package:highlight/languages/javascript.dart'; // 言語選択
+import 'package:highlight/languages/python.dart';
+
+import 'code_post.dart'; // Python用に変更！
 
 class Home extends StatefulWidget {
   final String id;
@@ -111,30 +115,30 @@ class _MyHome extends State<Home> {
                             Icon(Icons.chat_bubble_outline, color: Colors.white, size: 20,),),
                           ),
 
-                Expanded(child:
+                          Expanded(child:
                           IconButton(
                             onPressed: () {},
                             icon: Icon(Icons.repeat, color: Colors.white, size: 20,),),
-                ),
-                Expanded(child:
+                          ),
+                          Expanded(child:
                           IconButton(
                             onPressed: () {},
                             icon: Icon(Icons.thumb_up_off_alt, color: Colors.white, size: 20,),),
-                ),
+                          ),
                           Padding(padding: EdgeInsets.only(left:15),
-                child:
-                          Row(
-                            children: [
+                            child:
+                            Row(
+                              children: [
 
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.bookmark_border, color: Colors.white, size: 20,),),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.bookmark_border, color: Colors.white, size: 20,),),
 
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.share_outlined, color: Colors.white,size: 20,),),
-                            ],
-                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.share_outlined, color: Colors.white,size: 20,),),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -155,8 +159,8 @@ class _MyHome extends State<Home> {
             context,
             MaterialPageRoute(
               builder:
-                  (BuildContext context) =>
-                      Post(avatar: widget.avatar, name: widget.name),
+                  (BuildContext context) => //CodePostScreen()
+                  Post(avatar: widget.avatar, name: widget.name),
             ),
           );
 

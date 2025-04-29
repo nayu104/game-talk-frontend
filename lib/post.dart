@@ -8,7 +8,7 @@ import 'Widget/bottom_navigation.dart';
 import 'Widget/push_button.dart';
 import 'Widget/format_text_field.dart';
 import 'Widget/orange_button.dart';
-
+import 'code_post.dart';
 
 class Post extends StatefulWidget {
 
@@ -97,7 +97,26 @@ class _Post extends State<Post> {
       ),
       ),
         ]
-      )
+      ),
+        bottomSheet:
+        Container(
+          color: Color(0xFF404040),
+          padding: EdgeInsets.all(4),
+         child:
+             Row(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                 OrangeButton(message: "+write_code",
+                   onPressed: (){
+                     Navigator.push(
+                       context,
+                       MaterialPageRoute(builder: (context) => CodePostScreen()),
+                     );
+                   },
+                 ),
+      ],
+             ),
+        ),
     );
   }
 }

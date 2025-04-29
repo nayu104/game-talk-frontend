@@ -26,7 +26,7 @@ class _Login extends State<Login> {
   final passwordController = TextEditingController();
 
   Future<void> GitHub_login() async{
-    var url = Uri.https("dart-study-db.onrender.com","login/github");
+    var url = Uri.https("dart-study-db-436152672971.us-central1.run.app","login/github");
     if(await canLaunchUrl(url)){//awaitなのはネットの状況やスマホの状態によって時間がかかる可能性があるから
       await launchUrl(url,mode:LaunchMode.externalApplication);//mode:LaunchMode.externalApplicationは外部ブラウザで開くモード
     }else{
@@ -79,17 +79,26 @@ class _Login extends State<Login> {
         child:Column(
           children: [
 
-            TextFormat(message: "GitHubでログイン",fontsize: 25),
+            TextFormat(message: "ようこそ！",fontsize: 25),
 
             SizedBox(height: 40),//行間
 
-            OrangeButton(
-              message: 'ログイン',
-              fontSize: 10,
-            onPressed: (){
-              GitHub_login();
-            },
-            ),
+        ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.black, // GitHubのイメージに合わせた黒
+            foregroundColor: Colors.white, // テキストとアイコンを白に
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical:15),
+          ),
+          icon: Image.asset(
+            'assets/images/GitHub_Invertocat_Light.png', // 公式のGitHubロゴを使ってね
+            height: 30,
+            width: 50,
+          ),
+          label: const Text('GitHubで登録/ログイン'),
+          onPressed: () {
+            GitHub_login();
+          },
+        ),
           ],
         ),
       ),
