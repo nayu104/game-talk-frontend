@@ -35,7 +35,7 @@ class FormatTextField extends StatelessWidget {//TODOクラス名が妥当にリ
         cursorColor: Colors.white,
         decoration: InputDecoration(
           filled: true, // ← 背景を塗りつぶす
-          fillColor: Colors.black, // ← 好きな色に変更！
+          fillColor: Color(0xFF555555),// ← 好きな色に変更！
           hintText: labelText,
           hintStyle: TextStyle(color:  Colors.white.withOpacity(0.6)),
           //入力フィールドにiconが入るか入らないか

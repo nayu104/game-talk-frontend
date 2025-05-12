@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:stu/Widget/text_format.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'Widget/bottom_navigation.dart';
 import 'Widget/push_button.dart';
 import 'Widget/format_text_field.dart';
 import 'Widget/orange_button.dart';
@@ -12,6 +11,7 @@ import 'package:url_launcher/link.dart';
 import 'package:app_links/app_links.dart';
 import 'dart:async';
 import 'home.dart';
+import 'main_screen.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -59,7 +59,7 @@ class _Login extends State<Login> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => Home(id: this_id, name: this_name, avatar: this_avatar),
+            builder: (_) =>MainScreen(id: this_id, name: this_name, avatar: this_avatar),
           ),
         );
       }
@@ -70,11 +70,12 @@ class _Login extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFF404040),
+      backgroundColor: Color(0xFF404040),
       appBar:
       AppBar(backgroundColor: Color(0xFF404040),
+        elevation: 0,
       ),
-      
+
       body: Center(
         child:Column(
           children: [
@@ -83,22 +84,22 @@ class _Login extends State<Login> {
 
             SizedBox(height: 40),//行間
 
-        ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.black, // GitHubのイメージに合わせた黒
-            foregroundColor: Colors.white, // テキストとアイコンを白に
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical:15),
-          ),
-          icon: Image.asset(
-            'assets/images/GitHub_Invertocat_Light.png', // 公式のGitHubロゴを使ってね
-            height: 30,
-            width: 50,
-          ),
-          label: const Text('GitHubで登録/ログイン'),
-          onPressed: () {
-            GitHub_login();
-          },
-        ),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black, // GitHubのイメージに合わせた黒
+                foregroundColor: Colors.white, // テキストとアイコンを白に
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical:15),
+              ),
+              icon: Image.asset(
+                'assets/images/GitHub_Invertocat_Light.png', // 公式のGitHubロゴを使ってね
+                height: 30,
+                width: 50,
+              ),
+              label: const Text('GitHubで登録/ログイン'),
+              onPressed: () {
+                GitHub_login();
+              },
+            ),
           ],
         ),
       ),
