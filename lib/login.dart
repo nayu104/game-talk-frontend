@@ -26,7 +26,7 @@ class _Login extends State<Login> {
   final passwordController = TextEditingController();
 
   Future<void> GitHub_login() async{
-    var url = Uri.https("dart-study-db-436152672971.us-central1.run.app","login/github");
+    var url = Uri.https("engineer-sns-436152672971.europe-west1.run.app", "login/github", {"platform": "flutter"});
     if(await canLaunchUrl(url)){//awaitなのはネットの状況やスマホの状態によって時間がかかる可能性があるから
       await launchUrl(url,mode:LaunchMode.externalApplication);//mode:LaunchMode.externalApplicationは外部ブラウザで開くモード
     }else{
@@ -54,12 +54,13 @@ class _Login extends State<Login> {
       final this_id = uri?.queryParameters["id"] ?? "";
       final this_name = uri?.queryParameters["name"] ?? "";
       final this_avatar = uri?.queryParameters["avatar"] ?? "";
+      final this_token = uri?.queryParameters["token"] ?? "";
 
       if (context.mounted) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) =>MainScreen(id: this_id, name: this_name, avatar: this_avatar),
+            builder: (_) =>MainScreen(id: this_id, name: this_name, avatar: this_avatar,token: this_token),
           ),
         );
       }

@@ -16,12 +16,14 @@ class Home extends StatefulWidget {
   final String id;
   final String name;
   final String avatar;
+  final String token;
 
   const Home({
     super.key,
     required this.id,
     required this.name,
     required this.avatar,
+    required this.token,
   });
 
   @override
@@ -64,6 +66,8 @@ class _MyHome extends State<Home> {
                 pageBuilder: (context, animation, secondaryAnimation) => ProfilePage(
                   name: widget.name,
                   avatar: widget.avatar,
+                  id: widget.id,
+                  token: widget.token,
                 ),
                 transitionDuration: Duration(milliseconds: 220),//行き
                 reverseTransitionDuration: Duration(milliseconds: 220),//帰りの速度

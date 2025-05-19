@@ -14,14 +14,63 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ProfilePage extends StatefulWidget {
   final String avatar;
   final String name;
+  final String id;
+  final String token;
 
-  const ProfilePage({super.key, required this.avatar, required this.name});
+  const ProfilePage({super.key,
+    required this.avatar,
+    required this.name,
+    required this.id,
+    required this.token,
+  });
 
   @override
   State<ProfilePage> createState() => _ProfilePage();
 }
 
 class _ProfilePage extends State<ProfilePage> {
+
+
+  Future<Map<String,dynamic>> fetchFollowers(String token) async{
+    final res = await http.get(
+      Uri.parse("https://engineer-sns-436152672971.europe-west1.run.app/profile/followers"),
+      headers: {//parseでUri型に変換
+        "Authorization": "Bearer $token",
+      },
+    );
+    if(res.statusCode == 200) {
+      final data = jsonDecode(res.body);
+      return {
+        'count': data['count'],
+        'user': data['users']
+      };
+    }else{
+      throw Exception("フォロワーの取得に失敗しました");
+    }
+  }
+
+  Future<Map<String,dynamic>> fetchFollowing(String token) async{
+    final res = await http.get(
+      Uri.parse("https://engineer-sns-436152672971.europe-west1.run.app/profile/following"),
+      headers: {//parseでUri型に変換
+        "Authorization": "Bearer $token",
+      },
+    );
+    if(res.statusCode == 200) {
+      final data = jsonDecode(res.body);
+      return {
+        'count': data['count'],
+        'user': data['users']
+      };
+    }else{
+      throw Exception("フォローの取得に失敗しました");
+    }
+  }
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +105,7 @@ class _ProfilePage extends State<ProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.name,
+                      "なうい",
                       style: GoogleFonts.inter(
                         letterSpacing: 1.2,
                         fontWeight: FontWeight.w600,
@@ -73,12 +122,30 @@ class _ProfilePage extends State<ProfilePage> {
                         fontSize: 14,
                       ),
                     ),
+                    SizedBox(height: 30,),
+                    Row(
+                      children: [
+                        Text("フォロワー",style: GoogleFonts.inter(
+                      letterSpacing: 1.2,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),),
+                        SizedBox(width: 20,),
+                        Text("フォロー中",style: GoogleFonts.inter(
+                          letterSpacing: 1.2,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),)
+                      ],
+                    ),
                   ],
                 ),
               ],
             ),
             SizedBox(height: 1),
-            // 🔽 草のスクロール領域（ListView 横スクロール）
+            //  草のスクロール領域（ListView 横スクロール）
 
             SizedBox(
               height: 150,
@@ -89,11 +156,12 @@ class _ProfilePage extends State<ProfilePage> {
                     'https://ghchart.rshah.org/${widget.name}',
                     placeholderBuilder:
                         (context) => Center(child: CircularProgressIndicator()),
-                    semanticsLabel: 'GitHub contributions',
                   ),
                 ],
               ),
             ),
+            Divider(color: Colors.black, thickness: 0.5,),
+
           ],
         ),
       ),

@@ -21,12 +21,14 @@ class MainScreen extends StatefulWidget {
   final String id;
   final String name;
   final String avatar;
+  final String token;
 
   const MainScreen({
     super.key,
     required this.id,
     required this.name,
     required this.avatar,
+    required this.token,
   });
 
   @override
@@ -42,7 +44,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _screens = [
-      Home(id: widget.id, name: widget.name, avatar: widget.avatar),
+      Home(id: widget.id, name: widget.name, avatar: widget.avatar,token: widget.token),
       Search(avatar: widget.avatar), // 検索
       Notice(avatar: widget.avatar), // 通知
       Notice(avatar: widget.avatar), // DM
