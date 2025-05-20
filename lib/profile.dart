@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:stu/Widget/text_format.dart';
+import 'package:stu/followList.dart';
 import 'Home.dart';
 import 'Widget/avatar_app_bar.dart';
 import 'Widget/push_button.dart';
@@ -30,6 +31,30 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePage extends State<ProfilePage> {
 
+  int? followerCount;
+  int? followingCount;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCountsOnce();
+  }
+
+  Future<void> fetchCountsOnce() async {
+    print("fetchCountsOnce 呼ばれた");
+    try {
+      final followers = await fetchFollowers(widget.token);
+      final following = await fetchFollowing(widget.token);
+
+      setState(() {
+        followerCount = followers['count'];
+        followingCount = following['count'];
+      });
+    } catch (e) {
+      print("取得エラー: $e");
+      // 失敗しても画面を壊さない
+    }
+  }
 
   Future<Map<String,dynamic>> fetchFollowers(String token) async{
     final res = await http.get(
@@ -41,7 +66,6 @@ class _ProfilePage extends State<ProfilePage> {
     if(res.statusCode == 200) {
       final data = jsonDecode(res.body);
       return {
-        'count': data['count'],
         'user': data['users']
       };
     }else{
@@ -59,17 +83,12 @@ class _ProfilePage extends State<ProfilePage> {
     if(res.statusCode == 200) {
       final data = jsonDecode(res.body);
       return {
-        'count': data['count'],
         'user': data['users']
       };
     }else{
-      throw Exception("フォローの取得に失敗しました");
+      throw Exception("フォローの取得に失敗しました.token: ${widget.token}");
     }
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -125,21 +144,54 @@ class _ProfilePage extends State<ProfilePage> {
                     SizedBox(height: 30,),
                     Row(
                       children: [
-                        Text("フォロワー",style: GoogleFonts.inter(
-                      letterSpacing: 1.2,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.grey,
-                      fontSize: 14,
-                    ),),
-                        SizedBox(width: 20,),
-                        Text("フォロー中",style: GoogleFonts.inter(
-                          letterSpacing: 1.2,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey,
-                          fontSize: 14,
-                        ),)
+                        GestureDetector(
+                          onTap: () async {
+                            try {
+                              final data = await fetchFollowers(widget.token);
+                              final users = data['user'];
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => UserListPage(users: users, title: 'フォロワー'),
+                                ),
+                              );
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                            }
+                          },
+                          child: Text("${followerCount}フォロワー", style: GoogleFonts.inter(
+                            letterSpacing: 1.2,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            fontSize: 14,
+                          )),
+                        ),
+                        SizedBox(width: 20),
+                        GestureDetector(
+                          onTap: () async {
+                            try {
+                              final data = await fetchFollowing(widget.token);
+                              final users = data['user'];
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => UserListPage(users: users, title: 'フォロー中'),
+                                ),
+                              );
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                            }
+                          },
+                          child: Text("${followingCount}フォロー中", style: GoogleFonts.inter(
+                            letterSpacing: 1.2,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            fontSize: 14,
+                          )),
+                        )
                       ],
                     ),
+
                   ],
                 ),
               ],
@@ -161,7 +213,12 @@ class _ProfilePage extends State<ProfilePage> {
               ),
             ),
             Divider(color: Colors.black, thickness: 0.5,),
-
+            Text(
+              followerCount != null ? "$followerCount フォロワー" : "読み込み中...",
+            ),
+            Text(
+              followingCount != null ? "$followingCount フォロー中" : "読み込み中...",
+            ),
           ],
         ),
       ),
