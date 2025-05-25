@@ -66,7 +66,8 @@ class _ProfilePage extends State<ProfilePage> {
     if(res.statusCode == 200) {
       final data = jsonDecode(res.body);
       return {
-        'user': data['users']
+        'user': data['users'],
+        'count': data['count']
       };
     }else{
       throw Exception("フォロワーの取得に失敗しました");
@@ -83,7 +84,8 @@ class _ProfilePage extends State<ProfilePage> {
     if(res.statusCode == 200) {
       final data = jsonDecode(res.body);
       return {
-        'user': data['users']
+        'user': data['users'],
+        'count': data['count']
       };
     }else{
       throw Exception("フォローの取得に失敗しました.token: ${widget.token}");

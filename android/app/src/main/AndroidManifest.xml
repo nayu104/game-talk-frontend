@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.stu"> <!-- ← あなたのアプリのパッケージ名に変更する -->
+    package="com.example.stu"> <!-- ← パッケージ名を自分のものに変更 -->
 
     <application
         android:label="stu"
@@ -20,36 +20,44 @@
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
 
-            <!-- 起動用 -->
+            <!-- アプリ起動用 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- DeepLink用（カスタムスキーム） -->
+            <!-- カスタムスキーム DeepLink (例: techcircle://login_success) -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <!-- techcircle://login_success -->
                 <data
                     android:scheme="techcircle"
                     android:host="login_success" />
             </intent-filter>
+
         </activity>
 
-        <!-- Flutterの設定 -->
+        <!-- Flutter embedding -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
     </application>
 
-    <!-- Flutterのtext処理 -->
+    <!-- 外部URL（https）を開くための権限 -->
     <queries>
+        <!-- テキスト処理（もともとあったやつ） -->
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT" />
             <data android:mimeType="text/plain" />
         </intent>
+
+        <!-- 外部ブラウザで https を開くための設定 -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
     </queries>
+
 </manifest>

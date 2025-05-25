@@ -12,6 +12,7 @@ import 'Widget/orange_button.dart';
 import 'package:url_launcher/link.dart';
 import 'package:app_links/app_links.dart';
 import 'dart:async';
+import 'dm_home.dart';
 import 'home.dart';
 import 'login.dart';
 import 'notice.dart';
@@ -48,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
       Search(avatar: widget.avatar), // 検索
       Notice(avatar: widget.avatar), // 通知
       Notice(avatar: widget.avatar), // DM
-      Placeholder(),
+      DirectMessage_Home(id: widget.id, name: widget.name, avatar: widget.avatar),
     ];
   }
 

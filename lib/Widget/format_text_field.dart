@@ -8,6 +8,7 @@ class FormatTextField extends StatelessWidget {//TODOクラス名が妥当にリ
   final IconData? iconData;
   final TextEditingController? Controller;
   final String? labelText;
+
   const FormatTextField({super.key,
     this.Width,
     this.keyboardType,
@@ -35,7 +36,7 @@ class FormatTextField extends StatelessWidget {//TODOクラス名が妥当にリ
         cursorColor: Colors.white,
         decoration: InputDecoration(
           filled: true, // ← 背景を塗りつぶす
-          fillColor: Color(0xFF555555),// ← 好きな色に変更！
+          fillColor: Color(0xFF555555),
           hintText: labelText,
           hintStyle: TextStyle(color:  Colors.white.withOpacity(0.6)),
           //入力フィールドにiconが入るか入らないか
@@ -43,7 +44,7 @@ class FormatTextField extends StatelessWidget {//TODOクラス名が妥当にリ
           ? Icon(iconData, size: 20, color: Colors.white)
           : null,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50),//先端よ、まーるく、なーれ！
+            borderRadius: BorderRadius.circular(50),//先端が丸くなる
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 0),
           //入力領域の余白を０

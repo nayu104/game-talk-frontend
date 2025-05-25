@@ -114,15 +114,19 @@ class _MyHome extends State<Home> {
                               children: [
                                 Row(
                                     children: [
-                                Text(
-                                  post["name"]!,
+                                Text("なうい",
                                   style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
                                     color: Colors.white,
                                   ),
                                 ),
                                 SizedBox(width: 5),
-                                Text("@dfhajkhfdks",//TODO：IDの実装しなくちゃ
+                                Text("@",style: GoogleFonts.inter(
+                                  letterSpacing: 1.2,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey,
+                                  fontSize: 14,),),
+                                Text(post["name"]!,//TODO：IDの実装しなくちゃ
                                   style: GoogleFonts.inter(
                                   letterSpacing: 1.2,
                                   fontWeight: FontWeight.w600,
@@ -144,7 +148,7 @@ class _MyHome extends State<Home> {
                                     post["message"]!,
                                     style: GoogleFonts.inter(
                                       fontWeight: FontWeight.w400,
-                                      color: Colors.white70,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),

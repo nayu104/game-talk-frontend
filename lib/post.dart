@@ -32,6 +32,7 @@ class _Post extends State<Post> {
       backgroundColor: Color(0xFF404040),
       appBar:
       AppBar(backgroundColor: Color(0xFF404040),
+        elevation: 0,
         leading:
         IconButton(
             onPressed: (){},//TODO処理
@@ -55,7 +56,6 @@ class _Post extends State<Post> {
       ),
 
       body:
-
       Column(
         children: [
           Row(
@@ -67,7 +67,7 @@ class _Post extends State<Post> {
             radius: 15,
           ),
               SizedBox(width: 8,),
-              Text(widget.name, style: GoogleFonts.inter(
+              Text("なうい", style: GoogleFonts.inter(
                 letterSpacing: 1.2,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
@@ -105,14 +105,14 @@ class _Post extends State<Post> {
              Row(
                crossAxisAlignment: CrossAxisAlignment.start,
                children: [
-                 OrangeButton(message: "+write_code",
-                   onPressed: (){
-                     Navigator.push(
-                       context,
-                       MaterialPageRoute(builder: (context) => CodePostScreen()),
-                     );
-                   },
-                 ),
+                 // OrangeButton(message: "+write_code",
+                 //   onPressed: (){
+                 //     Navigator.push(
+                 //       context,
+                 //       MaterialPageRoute(builder: (context) => CodePostScreen()),
+                 //     );
+                 //   },
+                 // ),
       ],
              ),
         ),

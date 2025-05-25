@@ -1,19 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:stu/add_friend.dart';
-import 'package:stu/post.dart';
-import 'package:stu/sign_up.dart';
-import 'package:stu/timer.dart';
+import 'package:flutter/material.dart';  
 import 'Home.dart';
 import 'login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
-  // ← 必須（非同期初期化の前に）
   runApp(const MyApp());
 }
 
-
-// このウィジェットはアプリのルート（最上位）です。
 class MyApp extends StatelessWidget {
   //継承
   const MyApp({super.key});
