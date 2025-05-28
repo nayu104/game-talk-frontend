@@ -1,17 +1,10 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:stu/Widget/text_format.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'Widget/push_button.dart';
-import 'Widget/format_text_field.dart';
-import 'Widget/orange_button.dart';
-import 'package:url_launcher/link.dart';
 import 'package:app_links/app_links.dart';
 import 'dart:async';
-import 'home.dart';
 import 'main_screen.dart';
+import 'package:stu/config.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -26,14 +19,14 @@ class _Login extends State<Login> {
   final passwordController = TextEditingController();
 
   Future<void> GitHub_login() async{
-    var url = Uri.https("engineer-sns-436152672971.europe-west1.run.app", "login/github", {"platform": "flutter"});
+    var url = Uri.parse("$backendBaseUrl/login/github?platform=flutter");
     if(await canLaunchUrl(url)){//awaitなのはネットの状況やスマホの状態によって時間がかかる可能性があるから
       await launchUrl(url,mode:LaunchMode.externalApplication);//mode:LaunchMode.externalApplicationは外部ブラウザで開くモード
     }else{
       throw "開けないアル$url";
     }
   }
-  final AppLinks appLinks = AppLinks();//DeepLinkには欠かせませんねえ。リンク来た判定に使う
+  final AppLinks appLinks = AppLinks();//リンク来た判定に使う
 
   @override
   void initState() {
@@ -92,7 +85,7 @@ class _Login extends State<Login> {
                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical:15),
               ),
               icon: Image.asset(
-                'assets/images/GitHub_Invertocat_Light.png', // 公式のGitHubロゴを使ってね
+                'assets/images/GitHub_Invertocat_Light.png', // 公式のGitHubロゴ
                 height: 30,
                 width: 50,
               ),

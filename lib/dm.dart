@@ -43,7 +43,7 @@ class _DirectMessage extends State<DirectMessage> {
     final text = _controller.text.trim(); //	前後の空白（スペースや改行）を削除する
     if (text.isEmpty) return;
     setState(() {
-      messages.add({
+      messages.insert(0,{
         'sender': widget.senderId,
         'text': text,
         'timestamp': DateTime.now(), //送信した瞬間の時刻
@@ -53,20 +53,22 @@ class _DirectMessage extends State<DirectMessage> {
   }
 
   bool isTyping = false;
+
   @override
   void _initTypingListener() {
     _controller.addListener(() {
       setState(() {
-        isTyping = _controller.text.trim().isNotEmpty;//isNotEmpty：文字列が1文字以上 → true
+        isTyping =
+            _controller.text.trim().isNotEmpty; //isNotEmpty：文字列が1文字以上 → true
       });
     });
   }
+
   @override
   void initState() {
     super.initState();
     _initTypingListener();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -78,23 +80,45 @@ class _DirectMessage extends State<DirectMessage> {
         children: [
           Expanded(
             child: ListView.builder(
-              reverse: true, // 最新を下に
+              reverse: true, // 下に
               itemCount: messages.length,
               itemBuilder: (_, index) {
                 final msg = messages[index];
-                return ListTile(
-                  title: Text(
-                    msg['text'],
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  subtitle: Text(
-                    msg['timestamp'].toString(),
-                    style: const TextStyle(color: Colors.grey),
+                final isMe = msg['sender'] == widget.senderId;//送信者 or 受信者のフラグ
+                return Align(
+                  alignment:
+                      isMe ? Alignment.centerRight : Alignment.centerLeft, //送信者だったら右
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 2,
+                    ),
+                    padding: const EdgeInsets.all(10),
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width * 0.7,//横いっぱいに広がる＞防止
+                    ),
+                    decoration: BoxDecoration(
+                      color: isMe ? Colors.green[400] : Colors.grey[700],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        bottomRight: Radius.circular(20.0),
+                        bottomLeft:Radius.circular(20.0),
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          msg['text'],
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: Row(

@@ -1,18 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
-import 'package:stu/post.dart';
-import 'package:stu/profile.dart';
-import 'Reply.dart';
-import 'Widget/format_text_field.dart';
-import 'Widget/ui_divider_widget.dart';
 import 'Widget/avatar_app_bar.dart';
-import 'package:highlight/languages/javascript.dart';
-import 'package:highlight/languages/python.dart';
-import 'code_post.dart';
 import 'dm.dart'; // ← これが個別DM画面
-import '';
+
 
 class DirectMessage_Home extends StatefulWidget {
   final String id;
@@ -31,7 +20,7 @@ class DirectMessage_Home extends StatefulWidget {
 }
 
 class _DirectMessage_HomeState extends State<DirectMessage_Home> {
-  // 変数や状態はこっちに
+
   List<Map<String, String>> userList = [
     {'id': '1', 'name': 'Alice'},
     {'id': '2', 'name': 'Bob'},
@@ -77,3 +66,5 @@ class _DirectMessage_HomeState extends State<DirectMessage_Home> {
     );
   }
 }
+
+
