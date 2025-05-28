@@ -47,3 +47,4 @@ app.*.map.json
 ".dart_tool/" 
 "pubspec.lock" 
 ".idea/" 
+"lib/config.dart" 
