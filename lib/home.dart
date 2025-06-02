@@ -34,10 +34,28 @@ class _MyHome extends State<Home> {
         "avatar": widget.avatar,
         "message": message,
         "like": 0,
+        "liked":false,
         "replyTo": replyTo,
       });
     });
   }
+
+  Widget buildLikeText(int likeCount) {
+    if (likeCount >= 1000000) {
+      return Text("${(likeCount / 1000000).toStringAsFixed(1)}M",style: GoogleFonts.inter(
+        color: Colors.white,
+      ));
+    } else if (likeCount >= 1000) {
+      return Text("${(likeCount / 1000).toStringAsFixed(1)}k",style: GoogleFonts.inter(
+        color: Colors.white,
+      ));//小数点第一まで表示
+    } else {
+      return Text("$likeCount",style: GoogleFonts.inter(
+      color: Colors.white,
+      ));
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +133,7 @@ class _MyHome extends State<Home> {
                                   ),
                                 ),
                                 SizedBox(width: 5),
-                                Text("@",style: GoogleFonts.inter(
+                                 Text("@",style: GoogleFonts.inter(
                                   letterSpacing: 1.2,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.grey,
@@ -157,24 +175,36 @@ class _MyHome extends State<Home> {
                                     SizedBox(width: 12),
 
                                     IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+
+                                      },
                                       icon: Icon(Icons.repeat, color: Colors.white, size: 16),
                                     ),
 
-                                    SizedBox(width: 12),
+                                    //SizedBox(width: 12),
 
                                     IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        setState(() {
+                                         if(posts[index]["liked"] == false){
+                                           posts[index]["like"]++;
+                                           posts[index]["liked"] = true;
+                                         }else{
+                                           posts[index]["like"]--;
+                                           posts[index]["liked"] = false;
+                                         }
+                                        });
+                                      },
                                       icon: Icon(Icons.thumb_up_off_alt, color: Colors.white, size: 16),
                                     ),
+                                    buildLikeText(posts[index]["like"]),
 
-                                   // Spacer(),
 
                                     IconButton(
                                       onPressed: () {},
                                       icon: Icon(Icons.bookmark_border, color: Colors.white, size: 16),
                                     ),
-                                    SizedBox(width: 12),
+                                   // SizedBox(width: 12),
                                     IconButton(
                                       onPressed: () {},
                                       icon: Icon(Icons.share_outlined, color: Colors.white, size: 16),
