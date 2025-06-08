@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stu/post.dart';
@@ -5,6 +7,12 @@ import 'package:stu/profile.dart';
 import 'Reply.dart';
 import 'Widget/format_text_field.dart';
 import 'Widget/avatar_app_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:app_links/app_links.dart';
+import 'dart:async';
+import 'package:http/http.dart' as http;
+
+import 'join_request.dart';
 
 class Home extends StatefulWidget {
   final String id;
@@ -27,17 +35,49 @@ class Home extends StatefulWidget {
 class _MyHome extends State<Home> {
   List posts = [];
 
-  void _addPost(String message, {Map<String, dynamic>? replyTo}) {
-    setState(() {
-      posts.insert(0, {
-        "name": widget.name,
-        "avatar": widget.avatar,
-        "message": message,
-        "like": 0,
-        "liked":false,
-        "replyTo": replyTo,
+  //サーバー送信
+  Future<void> _addPost(String message,int recruitment, {Map<String, dynamic>? replyTo}) async{
+    final response = await http.post(
+      Uri.parse("https://engineer-sns-436152672971.europe-west1.run.app/get_post"),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'user_id': widget.id,
+        'message': message,
+        'recruitment': recruitment,
+        'avatar_url': widget.avatar,
+        'user_github_neme': widget.name,
+        //'media_url': mediaUrl,
+      })
+    );
+    if(response.statusCode == 201){
+      final post = jsonDecode(response.body);
+      setState(() {
+        posts.insert(0, post);
       });
-    });
+    }else{
+      print("投稿失敗");
+    }
+  }
+//一覧取得
+  Future<void> fetchPosts() async {
+    print('fetchPosts: 呼び出されました');
+    final response = await http.get(
+      Uri.parse("https://engineer-sns-436152672971.europe-west1.run.app/posts"),
+    );
+    if (response.statusCode == 200) {
+      final List<dynamic> postList = jsonDecode(response.body);
+      setState(() {
+        posts = List<Map<String, dynamic>>.from(postList);
+      });
+    } else {
+      print('一覧取得失敗: ${response.body}');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchPosts();
   }
 
   Widget buildLikeText(int likeCount) {
@@ -115,7 +155,7 @@ class _MyHome extends State<Home> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CircleAvatar(
-                            backgroundImage: NetworkImage(post["avatar"]!),
+                            backgroundImage: NetworkImage(post["avatar_url"]),
                             radius: 20,
                           ),
                           SizedBox(width: 12),
@@ -133,18 +173,24 @@ class _MyHome extends State<Home> {
                                   ),
                                 ),
                                 SizedBox(width: 5),
-                                 Text("@",style: GoogleFonts.inter(
-                                  letterSpacing: 1.2,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey,
-                                  fontSize: 14,),),
-                                Text(post["name"]!,//TODO：IDの実装しなくちゃ
-                                  style: GoogleFonts.inter(
-                                  letterSpacing: 1.2,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey,
-                                  fontSize: 14,),),
+                                //  Text("@",style: GoogleFonts.inter(
+                                //   letterSpacing: 1.2,
+                                //   fontWeight: FontWeight.w600,
+                                //   color: Colors.grey,
+                                //   fontSize: 14,),),
+                                // Text(post["user_id"]!,//TODO：IDの実装しなくちゃ
+                                //   style: GoogleFonts.inter(
+                                //   letterSpacing: 1.2,
+                                //   fontWeight: FontWeight.w600,
+                                //   color: Colors.grey,
+                                //   fontSize: 14,),),
                                 ]
+                                ),
+                                Text("募集人数：${post["recruitment"]??""}",
+                                  style: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white,
+                                  ),
                                 ),
                                 SizedBox(height: 4),
                                 GestureDetector(
@@ -167,49 +213,74 @@ class _MyHome extends State<Home> {
                                 SizedBox(height: 8),
                                 Row(
                                   children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.chat_bubble_outline, color: Colors.white, size: 16),
-                                    ),
-
-                                    SizedBox(width: 12),
-
-                                    IconButton(
-                                      onPressed: () {
-
-                                      },
-                                      icon: Icon(Icons.repeat, color: Colors.white, size: 16),
-                                    ),
-
                                     //SizedBox(width: 12),
 
-                                    IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                         if(posts[index]["liked"] == false){
-                                           posts[index]["like"]++;
-                                           posts[index]["liked"] = true;
-                                         }else{
-                                           posts[index]["like"]--;
-                                           posts[index]["liked"] = false;
-                                         }
-                                        });
-                                      },
-                                      icon: Icon(Icons.thumb_up_off_alt, color: Colors.white, size: 16),
-                                    ),
-                                    buildLikeText(posts[index]["like"]),
+                                    // IconButton(
+                                    //   onPressed: () {
+                                    //     setState(() {
+                                    //      if(posts[index]["liked"] == false){
+                                    //        posts[index]["like"]++;
+                                    //        posts[index]["liked"] = true;
+                                    //      }else{
+                                    //        posts[index]["like"]--;
+                                    //        posts[index]["liked"] = false;
+                                    //      }
+                                    //     });
+                                    //   },
+                                    //   icon: Icon(Icons.thumb_up_off_alt, color: Colors.white, size: 16),
+                                    // ),
+                                    // buildLikeText(posts[index]["like"]),
 
-
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.bookmark_border, color: Colors.white, size: 16),
-                                    ),
                                    // SizedBox(width: 12),
                                     IconButton(
                                       onPressed: () {},
-                                      icon: Icon(Icons.share_outlined, color: Colors.white, size: 16),
+                                      icon: Icon(Icons.bookmark_border, color: Colors.white, size: 20),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.share_outlined, color: Colors.white, size: 20),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.reply, color: Colors.white, size: 20),
                                     ),
                                   ],
+                                ),
+                                Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton.icon(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.orange, // 色を変えたい場合
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),),
+                                        icon: Icon(Icons.group,size: 20,),
+                                        label: Text("申請者数:"),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => JoinRequest()),
+                                          );
+                                        },
+                                      ),
+                                      ElevatedButton.icon(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.blue,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                        icon: Icon(Icons.arrow_back_ios_new_rounded,size: 20,),
+                                        label: Text("参加申請"),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => JoinRequest()),
+                                          );
+                                        },
+                                      )
+                ,]
                                 )
                               ],
                             ),
@@ -230,7 +301,7 @@ class _MyHome extends State<Home> {
         child: FloatingActionButton(
           shape: CircleBorder(),
           onPressed: () async {
-            final message = await Navigator.push(
+            final result = await Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (BuildContext context) => Post(
@@ -240,8 +311,10 @@ class _MyHome extends State<Home> {
               ),
             );
 
-            if (message != null && message is String) {
-              _addPost(message);
+            if (result != null) {
+              final message = result['message'];
+              final recruitment = result['recruitment'];
+              _addPost(message, recruitment);
             }
           },
           child: Container(

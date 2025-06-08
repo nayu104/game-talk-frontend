@@ -9,6 +9,7 @@ import 'Widget/format_text_field.dart';
 import 'Widget/orange_button.dart';
 import 'code_post.dart';
 
+
 class Post extends StatefulWidget {
 
   final String avatar;
@@ -25,6 +26,9 @@ class Post extends StatefulWidget {
 class _Post extends State<Post> {
 
   final _textController = TextEditingController();
+
+  int?  selectedSlot = 1;
+  final List slots = [1,2,3];
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +48,11 @@ class _Post extends State<Post> {
           IconButton(
             onPressed: (){
               final message = _textController.text;
-              Navigator.pop(context,message);
+              final recruitment = selectedSlot;
+              Navigator.pop(context,{
+                'message': message,
+                'recruitment': recruitment,
+              });
             },//TODO処理
             icon: Transform.rotate(
                 angle:-0.5,
@@ -76,6 +84,44 @@ class _Post extends State<Post> {
     ],
           ),
 
+          SizedBox(height: 40),
+
+          Center(
+            child: SizedBox(
+              width: 250,
+             child:  DropdownButtonFormField<int>(
+               isExpanded: true,
+                value: selectedSlot,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.black87, // バーの背景
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+                dropdownColor: Colors.black, // リスト背景
+                items: slots.map((slot) => DropdownMenuItem<int>(
+                  value: slot,
+                  child: Center(
+                    child: Text("募集人数：$slot人", style: TextStyle(color: Colors.white)),
+                  ),
+                )).toList(),//map,toListで新しいリストに入れ替える
+                selectedItemBuilder: (context) {
+                  return slots.map((slot) {// returnでListを返す
+                    return Center(child: Text("募集人数：$slot人", style: TextStyle(color: Colors.white),));
+                  }).toList();
+                },
+                onChanged: (value) {
+                  setState(() { selectedSlot = value; });//Object?型だがint?をいれたいため
+                },
+              ),
+
+            ),
+          ),
+
+          SizedBox(height: 40),
+
           Padding(padding: EdgeInsets.only(left: 50),
           child:
       TextField(
@@ -89,7 +135,7 @@ class _Post extends State<Post> {
         ),
         maxLines: null,
         decoration: InputDecoration(
-          hintText: "いまなにしてる？",
+          hintText: "募集内容を書いてください！",
           hintStyle: TextStyle(color: Colors.grey),
           border: InputBorder.none, // 枠線なし
         ),
