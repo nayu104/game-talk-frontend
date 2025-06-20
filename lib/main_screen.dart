@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stu/search.dart';
+import 'package:stu/board.dart';
 import 'package:vibration/vibration.dart';
+import 'create_group.dart';
 import 'dm_home.dart';
+import 'group_list.dart';
 import 'home.dart';
+import 'invitation.dart';
 import 'notice.dart';
 
 
@@ -34,11 +37,11 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _screens = [
-      Home(id: widget.id, name: widget.name, avatar: widget.avatar,token: widget.token),
-      Search(avatar: widget.avatar), // 検索
+      Home(id: widget.id, name: widget.name, avatar: widget.avatar,token: widget.token),//募集
+      Board(id: widget.id, name: widget.name, avatar: widget.avatar,token: widget.token), // 総合掲示板
+      invitation(avatar: widget.avatar,name: widget.name,id: widget.id,token: widget.token), // 招待部屋
       Notice(avatar: widget.avatar), // 通知
-      Notice(avatar: widget.avatar), // DM
-      DirectMessage_Home(id: widget.id, name: widget.name, avatar: widget.avatar),
+      // GroupListPage()
     ];
   }
 
@@ -81,11 +84,11 @@ class _MainScreenState extends State<MainScreen> {
         },
 
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム',),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: '検索'),
-          BottomNavigationBarItem(icon: Icon(Icons.group), label: 'グループ'),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications_none), label: '通知'),
-          BottomNavigationBarItem(icon: Icon(Icons.mail_outline), label: 'DM'),
+          BottomNavigationBarItem(icon: Icon(Icons.public), label: 'おすすめ',),
+          BottomNavigationBarItem(icon: Icon(Icons.forum_outlined), label: '招待グループ'),
+          BottomNavigationBarItem(icon: Icon(Icons.article_outlined), label: 'グループ'),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications_outlined), label: '通知'),
+          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'マイページ'),
         ],
       ),
     );

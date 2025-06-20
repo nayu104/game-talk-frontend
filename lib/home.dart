@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stu/post.dart';
@@ -11,8 +10,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:app_links/app_links.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
-
 import 'join_request.dart';
+
+
+
 
 class Home extends StatefulWidget {
   final String id;
@@ -166,7 +167,7 @@ class _MyHome extends State<Home> {
                               children: [
                                 Row(
                                     children: [
-                                Text("なうい",
+                                      Text("なうい",
                                   style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
                                     color: Colors.white,
@@ -186,11 +187,18 @@ class _MyHome extends State<Home> {
                                 //   fontSize: 14,),),
                                 ]
                                 ),
-                                Text("募集人数：${post["recruitment"]??""}",
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(24),
+                                    color: Colors.greenAccent
+                                  ),
+                              child:  Text("0/${post["recruitment"]??""}人参加中",
                                   style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w400,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                   ),
+                                ),
                                 ),
                                 SizedBox(height: 4),
                                 GestureDetector(
@@ -230,33 +238,56 @@ class _MyHome extends State<Home> {
                                     //   icon: Icon(Icons.thumb_up_off_alt, color: Colors.white, size: 16),
                                     // ),
                                     // buildLikeText(posts[index]["like"]),
-
-                                   // SizedBox(width: 12),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.bookmark_border, color: Colors.white, size: 20),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.share_outlined, color: Colors.white, size: 20),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.reply, color: Colors.white, size: 20),
-                                    ),
                                   ],
                                 ),
                                 Row(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      ElevatedButton.icon(
+                                      // ElevatedButton.icon(
+                                      //   style: ElevatedButton.styleFrom(
+                                      //     backgroundColor: Colors.green, // 色を変えたい場合
+                                      //     shape: RoundedRectangleBorder(
+                                      //       borderRadius: BorderRadius.circular(8),
+                                      //     ),),
+                                      //   label: Text("参加希望者"),
+                                      //   onPressed: () {
+                                      //     Navigator.push(
+                                      //       context,
+                                      //       MaterialPageRoute(builder: (context) => JoinRequest()),
+                                      //     );
+                                      //   },
+                                      // ),
+                Container(
+                //padding: EdgeInsets.symmetric(horizontal: 10,vertical: 0),
+                decoration: BoxDecoration(
+               borderRadius: BorderRadius.circular(24),
+                gradient: LinearGradient(
+                begin: FractionalOffset.topLeft,
+                end: FractionalOffset.bottomRight,
+                colors: const [
+                Color(0xFF99CCFF),
+                Color(0xFF99FFFF),
+                Color(0xFF99FFCC),
+                Color(0xFF99FF99),
+                ],
+                ),
+                ),
+                child:ElevatedButton.icon(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.orange, // 色を変えたい場合
+                                          backgroundColor: Colors.transparent,
+                                          elevation: 0,
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(8),
-                                          ),),
-                                        icon: Icon(Icons.group,size: 20,),
-                                        label: Text("申請者数:"),
+                                          ),
+                                          padding: EdgeInsets.symmetric(horizontal: 14, vertical: 7), // ←細くしたい場合ここで調整
+                                          minimumSize: Size(0, 28), // 高さ28px、幅制限なし（さらに細くしたい場合調整）
+                                          tapTargetSize: MaterialTapTargetSize.shrinkWrap, // ←タップ範囲も小さくするなら
+                                        ),
+                                        label: Text("参加申請を送信",style: GoogleFonts.inter(
+                                          letterSpacing: 1.2,
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                        ),),
                                         onPressed: () {
                                           Navigator.push(
                                             context,
@@ -264,23 +295,20 @@ class _MyHome extends State<Home> {
                                           );
                                         },
                                       ),
-                                      ElevatedButton.icon(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.blue,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                        ),
-                                        icon: Icon(Icons.arrow_back_ios_new_rounded,size: 20,),
-                                        label: Text("参加申請"),
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => JoinRequest()),
-                                          );
-                                        },
-                                      )
-                ,]
+                ),
+                IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.bookmark_border, color: Colors.white, size: 19),
+                ),
+                IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.share_outlined, color: Colors.white, size: 19),
+                ),
+                IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.reply, color: Colors.white, size: 19),
+                ),
+                                    ]
                                 )
                               ],
                             ),
