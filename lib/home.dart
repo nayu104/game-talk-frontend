@@ -12,9 +12,6 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'join_request.dart';
 
-
-
-
 class Home extends StatefulWidget {
   final String id;
   final String name;
@@ -37,9 +34,15 @@ class _MyHome extends State<Home> {
   List posts = [];
 
   //サーバー送信
-  Future<void> _addPost(String message,int recruitment, {Map<String, dynamic>? replyTo}) async{
+  Future<void> _addPost(
+    String message,
+    int recruitment, {
+    Map<String, dynamic>? replyTo,
+  }) async {
     final response = await http.post(
-      Uri.parse("https://engineer-sns-436152672971.europe-west1.run.app/get_post"),
+      Uri.parse(
+        "https://engineer-sns-436152672971.europe-west1.run.app/get_post",
+      ),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'user_id': widget.id,
@@ -48,18 +51,19 @@ class _MyHome extends State<Home> {
         'avatar_url': widget.avatar,
         'user_github_neme': widget.name,
         //'media_url': mediaUrl,
-      })
+      }),
     );
-    if(response.statusCode == 201){
+    if (response.statusCode == 201) {
       final post = jsonDecode(response.body);
       setState(() {
         posts.insert(0, post);
       });
-    }else{
+    } else {
       print("投稿失敗");
     }
   }
-//一覧取得
+
+  //一覧取得
   Future<void> fetchPosts() async {
     print('fetchPosts: 呼び出されました');
     final response = await http.get(
@@ -83,20 +87,19 @@ class _MyHome extends State<Home> {
 
   Widget buildLikeText(int likeCount) {
     if (likeCount >= 1000000) {
-      return Text("${(likeCount / 1000000).toStringAsFixed(1)}M",style: GoogleFonts.inter(
-        color: Colors.white,
-      ));
+      return Text(
+        "${(likeCount / 1000000).toStringAsFixed(1)}M",
+        style: GoogleFonts.inter(color: Colors.white),
+      );
     } else if (likeCount >= 1000) {
-      return Text("${(likeCount / 1000).toStringAsFixed(1)}k",style: GoogleFonts.inter(
-        color: Colors.white,
-      ));//小数点第一まで表示
+      return Text(
+        "${(likeCount / 1000).toStringAsFixed(1)}k",
+        style: GoogleFonts.inter(color: Colors.white),
+      ); //小数点第一まで表示
     } else {
-      return Text("$likeCount",style: GoogleFonts.inter(
-      color: Colors.white,
-      ));
+      return Text("$likeCount", style: GoogleFonts.inter(color: Colors.white));
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -116,27 +119,35 @@ class _MyHome extends State<Home> {
             Navigator.push(
               context,
               PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) => ProfilePage(
-                  name: widget.name,
-                  avatar: widget.avatar,
-                  id: widget.id,
-                  token: widget.token,
-                ),
-                transitionDuration: Duration(milliseconds: 220),//行き
-                reverseTransitionDuration: Duration(milliseconds: 220),//帰りの速度
-                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                pageBuilder:
+                    (context, animation, secondaryAnimation) => ProfilePage(
+                      name: widget.name,
+                      avatar: widget.avatar,
+                      id: widget.id,
+                      token: widget.token,
+                    ),
+                transitionDuration: Duration(milliseconds: 220), //行き
+                reverseTransitionDuration: Duration(milliseconds: 220), //帰りの速度
+                transitionsBuilder: (
+                  context,
+                  animation,
+                  secondaryAnimation,
+                  child,
+                ) {
                   const begin = Offset(1.0, 0.0); // 左からスライドイン
                   const end = Offset.zero;
                   final tween = Tween(begin: begin, end: end);
                   final offsetAnimation = animation.drive(tween);
-                  return SlideTransition(position: offsetAnimation, child: child);
+                  return SlideTransition(
+                    position: offsetAnimation,
+                    child: child,
+                  );
                 },
               ),
             );
           },
           child: AvatarAppBar(avatarUrl: widget.avatar),
         ),
-
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -148,7 +159,10 @@ class _MyHome extends State<Home> {
                 final post = posts[index];
 
                 return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 16.0,
+                  ),
                   child: Column(
                     children: [
                       Divider(color: Colors.black, thickness: 0.5),
@@ -160,53 +174,44 @@ class _MyHome extends State<Home> {
                             radius: 20,
                           ),
                           SizedBox(width: 12),
-                          Expanded(//これがないとはみ出る
-                            child:
-                            Column(
+                          Expanded(
+                            //これがないとはみ出る
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                    children: [
-                                      Text("なうい",
-                                  style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                  ),
+                                  children: [
+                                    Text(
+                                      "なうい",
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    SizedBox(width: 5),
+                                    //  Text("@",style: GoogleFonts.inter(
+                                    //   letterSpacing: 1.2,
+                                    //   fontWeight: FontWeight.w600,
+                                    //   color: Colors.grey,
+                                    //   fontSize: 14,),),
+                                    // Text(post["user_id"]!,//TODO：IDの実装しなくちゃ
+                                    //   style: GoogleFonts.inter(
+                                    //   letterSpacing: 1.2,
+                                    //   fontWeight: FontWeight.w600,
+                                    //   color: Colors.grey,
+                                    //   fontSize: 14,),),
+                                  ],
                                 ),
-                                SizedBox(width: 5),
-                                //  Text("@",style: GoogleFonts.inter(
-                                //   letterSpacing: 1.2,
-                                //   fontWeight: FontWeight.w600,
-                                //   color: Colors.grey,
-                                //   fontSize: 14,),),
-                                // Text(post["user_id"]!,//TODO：IDの実装しなくちゃ
-                                //   style: GoogleFonts.inter(
-                                //   letterSpacing: 1.2,
-                                //   fontWeight: FontWeight.w600,
-                                //   color: Colors.grey,
-                                //   fontSize: 14,),),
-                                ]
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(24),
-                                    color: Colors.greenAccent
-                                  ),
-                              child:  Text("0/${post["recruitment"]??""}人参加中",
-                                  style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                ),
+
                                 SizedBox(height: 4),
                                 GestureDetector(
                                   onTap: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (BuildContext context) => Reply(replyTo: post),
+                                        builder:
+                                            (BuildContext context) =>
+                                                Reply(replyTo: post),
                                       ),
                                     );
                                   },
@@ -221,95 +226,53 @@ class _MyHome extends State<Home> {
                                 SizedBox(height: 8),
                                 Row(
                                   children: [
-                                    //SizedBox(width: 12),
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (posts[index]["liked"] == false) {
+                                            posts[index]["like"]++;
+                                            posts[index]["liked"] = true;
+                                          } else {
+                                            posts[index]["like"]--;
+                                            posts[index]["liked"] = false;
+                                          }
+                                        });
+                                      },
+                                      icon: Icon(
+                                        Icons.thumb_up_off_alt,
+                                        color: Colors.white,
+                                        size: 16,
+                                      ),
+                                    ),
+                                    buildLikeText(posts[index]["like"] ?? 0),
+                                    IconButton(
+                                      onPressed: () {
 
-                                    // IconButton(
-                                    //   onPressed: () {
-                                    //     setState(() {
-                                    //      if(posts[index]["liked"] == false){
-                                    //        posts[index]["like"]++;
-                                    //        posts[index]["liked"] = true;
-                                    //      }else{
-                                    //        posts[index]["like"]--;
-                                    //        posts[index]["liked"] = false;
-                                    //      }
-                                    //     });
-                                    //   },
-                                    //   icon: Icon(Icons.thumb_up_off_alt, color: Colors.white, size: 16),
-                                    // ),
-                                    // buildLikeText(posts[index]["like"]),
+                                      },
+                                      icon: Icon(
+                                        Icons.bookmark_border,
+                                        color: Colors.white,
+                                        size: 19,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.share_outlined,
+                                        color: Colors.white,
+                                        size: 19,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.reply,
+                                        color: Colors.white,
+                                        size: 19,
+                                      ),
+                                    ),
                                   ],
                                 ),
-                                Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      // ElevatedButton.icon(
-                                      //   style: ElevatedButton.styleFrom(
-                                      //     backgroundColor: Colors.green, // 色を変えたい場合
-                                      //     shape: RoundedRectangleBorder(
-                                      //       borderRadius: BorderRadius.circular(8),
-                                      //     ),),
-                                      //   label: Text("参加希望者"),
-                                      //   onPressed: () {
-                                      //     Navigator.push(
-                                      //       context,
-                                      //       MaterialPageRoute(builder: (context) => JoinRequest()),
-                                      //     );
-                                      //   },
-                                      // ),
-                Container(
-                //padding: EdgeInsets.symmetric(horizontal: 10,vertical: 0),
-                decoration: BoxDecoration(
-               borderRadius: BorderRadius.circular(24),
-                gradient: LinearGradient(
-                begin: FractionalOffset.topLeft,
-                end: FractionalOffset.bottomRight,
-                colors: const [
-                Color(0xFF99CCFF),
-                Color(0xFF99FFFF),
-                Color(0xFF99FFCC),
-                Color(0xFF99FF99),
-                ],
-                ),
-                ),
-                child:ElevatedButton.icon(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.transparent,
-                                          elevation: 0,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          padding: EdgeInsets.symmetric(horizontal: 14, vertical: 7), // ←細くしたい場合ここで調整
-                                          minimumSize: Size(0, 28), // 高さ28px、幅制限なし（さらに細くしたい場合調整）
-                                          tapTargetSize: MaterialTapTargetSize.shrinkWrap, // ←タップ範囲も小さくするなら
-                                        ),
-                                        label: Text("参加申請を送信",style: GoogleFonts.inter(
-                                          letterSpacing: 1.2,
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                        ),),
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => JoinRequest()),
-                                          );
-                                        },
-                                      ),
-                ),
-                IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.bookmark_border, color: Colors.white, size: 19),
-                ),
-                IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.share_outlined, color: Colors.white, size: 19),
-                ),
-                IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.reply, color: Colors.white, size: 19),
-                ),
-                                    ]
-                                )
                               ],
                             ),
                           ),
@@ -332,10 +295,9 @@ class _MyHome extends State<Home> {
             final result = await Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => Post(
-                  avatar: widget.avatar,
-                  name: widget.name,
-                ),
+                builder:
+                    (BuildContext context) =>
+                        Post(avatar: widget.avatar, name: widget.name),
               ),
             );
 

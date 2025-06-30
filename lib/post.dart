@@ -86,42 +86,6 @@ class _Post extends State<Post> {
 
           SizedBox(height: 40),
 
-          Center(
-            child: SizedBox(
-              width: 250,
-             child:  DropdownButtonFormField<int>(
-               isExpanded: true,
-                value: selectedSlot,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.black87, // バーの背景
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-                dropdownColor: Colors.black, // リスト背景
-                items: slots.map((slot) => DropdownMenuItem<int>(
-                  value: slot,
-                  child: Center(
-                    child: Text("募集人数：$slot人", style: TextStyle(color: Colors.white)),
-                  ),
-                )).toList(),//map,toListで新しいリストに入れ替える
-                selectedItemBuilder: (context) {
-                  return slots.map((slot) {// returnでListを返す
-                    return Center(child: Text("募集人数：$slot人", style: TextStyle(color: Colors.white),));
-                  }).toList();
-                },
-                onChanged: (value) {
-                  setState(() { selectedSlot = value; });//Object?型だがint?をいれたいため
-                },
-              ),
-
-            ),
-          ),
-
-          SizedBox(height: 40),
-
           Padding(padding: EdgeInsets.only(left: 50),
           child:
       TextField(

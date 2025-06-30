@@ -34,5 +34,4 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/test01.jpg
     - assets/images/GitHub_Invertocat_Light.png
